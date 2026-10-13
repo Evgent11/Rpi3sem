@@ -1,0 +1,31 @@
+.about {
+  min-height: 447px;
+  padding: 65px 59px 60px;
+}
+
+.about__line {
+  width: 218px;
+  margin-bottom: 8px;
+}
+
+.about__text {
+  max-width: 1040px;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 39px;
+  color: #000;
+}
+
+@media (max-width: 900px) {
+  .about {
+    min-height: 0;
+    padding: 32px 20px 36px;
+  }
+  .about__line {
+    width: 140px;
+  }
+  .about__text {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

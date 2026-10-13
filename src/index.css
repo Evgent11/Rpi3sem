@@ -1,0 +1,122 @@
+:root {
+  --red: #df5b53;
+  --yellow: #fbff6f;
+  --green: #94fb75;
+  --purple: #9451f5;
+  --rainbow: linear-gradient(
+    90deg,
+    var(--red) 0 25%,
+    var(--yellow) 25% 50%,
+    var(--green) 50% 75%,
+    var(--purple) 75% 100%
+  );
+  --frame-border: linear-gradient(135deg, #e9908a, #f1ee9c 40%, #8fd9b5 70%, #6fa3ee);
+  --text: #000;
+  --muted: #5b5b5b;
+  --canvas: #f4f4f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", system-ui, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---------- общие блоки ---------- */
+.container {
+  width: 1170px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 12px 0;
+  background: var(--canvas);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 48px;
+  min-height: 60vh;
+}
+
+.frame {
+  background: #ffffff;
+  border: 1px solid transparent;
+  border-image: var(--frame-border) 1;
+}
+
+
+/* радужная линия из макета */
+.rainbow {
+  display: block;
+  height: 4px;
+  background: var(--rainbow);
+}
+
+/* кнопка-ссылка из макета («НАЙТИ ЛЕКТОРА») */
+.cta {
+  display: inline-block;
+  position: relative;
+  padding: 0 0 8px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+}
+
+.cta::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--rainbow);
+  transition: transform 0.2s;
+  transform-origin: left;
+}
+
+.cta:hover::after {
+  transform: scaleY(1.8);
+}
+

@@ -1,0 +1,60 @@
+.main {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 49px;
+  min-height: 370px;
+  padding: 24px 25px 80px;
+}
+
+.main .image {
+  flex: none;
+  width: 435px;
+  height: 290px;
+  object-fit: cover;
+}
+
+.main__text {
+  flex: 1;
+  max-width: 590px;
+  padding-top: 28px;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: 0;
+  color: #000;
+}
+
+.main__lead {
+  font-weight: 700;
+}
+
+.main .main__cta {
+  position: absolute;
+  right: 76px;
+  bottom: 52px;
+}
+
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 16px 28px;
+    min-height: 0;
+  }
+  .main .image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .main__text {
+    padding-top: 0;
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .main .main__cta {
+    position: static;
+    align-self: flex-end;
+    margin-right: 8px;
+  }
+}

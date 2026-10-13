@@ -1,0 +1,92 @@
+.lector {
+  padding: 46px 51px 56px;
+}
+
+.lector__top {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+  margin-bottom: 56px;
+}
+
+.lector__photo-wrap {
+  flex: none;
+  width: 228px;
+}
+
+.lector__photo {
+  display: block;
+  width: 228px;
+  height: 236px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  background: #d9d9d9;
+}
+
+.lector__line {
+  height: 6px;
+}
+
+.lector__name {
+  margin: 0 0 32px;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+.lector__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 24px;
+  line-height: 34px;
+}
+
+.lector__subtitle {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.lector__discipline {
+  margin-bottom: 20px;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+.lector__discipline ol {
+  padding-left: 28px;
+}
+
+.lector__tariffs {
+  margin-top: 8px;
+  padding-left: 22px;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+@media (max-width: 900px) {
+  .lector {
+    padding: 20px;
+  }
+  .lector__top {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .lector__name {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 16px;
+  }
+  .lector__facts {
+    font-size: 17px;
+    line-height: 24px;
+  }
+  .lector__discipline,
+  .lector__tariffs {
+    font-size: 16px;
+    line-height: 23px;
+  }
+}
