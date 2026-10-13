@@ -1,23 +1,67 @@
+.lectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.lector-card {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: #fff;
+}
+
+.lector-card__photo {
+  flex: none;
+  width: 120px;
+  height: 140px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  background: #d9d9d9;
+}
+
+.lector-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.lector-card__name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.lector-card__meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 22px;
+}
+
 .lector {
-  padding: 46px 51px 56px;
+  padding: 0;
 }
 
 .lector__top {
   display: flex;
-  gap: 50px;
+  gap: 32px;
   align-items: flex-start;
-  margin-bottom: 56px;
+  margin-bottom: 28px;
 }
 
 .lector__photo-wrap {
   flex: none;
-  width: 228px;
+  width: 180px;
 }
 
 .lector__photo {
   display: block;
-  width: 228px;
-  height: 236px;
+  width: 180px;
+  height: 190px;
   object-fit: cover;
   object-position: 50% 20%;
   background: #d9d9d9;
@@ -27,66 +71,54 @@
   height: 6px;
 }
 
-.lector__name {
-  margin: 0 0 32px;
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 44px;
-}
-
 .lector__facts {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 18px;
+  line-height: 26px;
 }
 
 .lector__subtitle {
   margin: 0 0 8px;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 28px;
+  line-height: 26px;
 }
 
 .lector__discipline {
-  margin-bottom: 20px;
-  font-size: 20px;
-  line-height: 27px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .lector__discipline ol {
-  padding-left: 28px;
+  padding-left: 24px;
 }
 
 .lector__tariffs {
   margin-top: 8px;
-  padding-left: 22px;
-  font-size: 20px;
-  line-height: 27px;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 @media (max-width: 900px) {
-  .lector {
-    padding: 20px;
+  .lectors {
+    grid-template-columns: 1fr;
   }
+
+  .lector-card {
+    padding: 16px;
+  }
+
   .lector__top {
     flex-direction: column;
-    gap: 24px;
-    margin-bottom: 32px;
+    gap: 16px;
   }
-  .lector__name {
-    font-size: 26px;
-    line-height: 32px;
-    margin-bottom: 16px;
-  }
-  .lector__facts {
-    font-size: 17px;
-    line-height: 24px;
-  }
-  .lector__discipline,
-  .lector__tariffs {
-    font-size: 16px;
-    line-height: 23px;
+
+  .lector-card__name {
+    font-size: 20px;
+    line-height: 26px;
   }
 }
