@@ -1,7 +1,10 @@
 import { useEffect, useId, useRef } from "react";
+import { createPortal } from "react-dom";
 import "./Modal.css";
 
 // Модальное окно поверх страницы.
+// Рендерится через портал в #modal-root, вне дерева #root,
+// поэтому не влияет на вёрстку карточки-родителя.
 // Закрывается по Escape, клику по затемнению и кнопке «Закрыть».
 export const Modal = ({ title, onClose, children }) => {
   const titleId = useId();
@@ -22,7 +25,9 @@ export const Modal = ({ title, onClose, children }) => {
     };
   }, [onClose]);
 
-  return (
+  const portalRoot = document.getElementById("modal-root");
+
+  return createPortal(
     <div className="modal" onClick={onClose}>
       <div
         className="modal__dialog frame"
@@ -48,6 +53,7 @@ export const Modal = ({ title, onClose, children }) => {
         </div>
         <div className="modal__body">{children}</div>
       </div>
-    </div>
+    </div>,
+    portalRoot,
   );
 };
