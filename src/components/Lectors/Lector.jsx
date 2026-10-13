@@ -1,20 +1,54 @@
+import { useState } from "react";
 import { Photo } from "./Photo";
+import { Modal } from "../Modal/Modal";
 import { formatPrice } from "../../utils";
 
-// Один блок лектора — фрейм «Лекторы» из макета
-export const Lector = ({ lecturer }) => (
-  <section className="lector frame">
+// Карточка лектора. Подробности открываются в модальном окне.
+export const Lector = ({ lecturer }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <article className="lector-card frame">
+      <Photo className="lector-card__photo" id={lecturer.id} name={lecturer.name} />
+      <div className="lector-card__body">
+        <h2 className="lector-card__name">{lecturer.name}</h2>
+        <p className="lector-card__meta">
+          {lecturer.degree !== "нет" ? lecturer.degree : lecturer.education}
+          {" · "}
+          {lecturer.experience}
+        </p>
+        <button type="button" className="cta" onClick={() => setOpen(true)}>
+          Подробнее
+        </button>
+      </div>
+
+      {open && (
+        <Modal title={lecturer.name} onClose={() => setOpen(false)}>
+          <LectorDetails lecturer={lecturer} />
+        </Modal>
+      )}
+    </article>
+  );
+};
+
+const LectorDetails = ({ lecturer }) => (
+  <div className="lector">
     <div className="lector__top">
       <div className="lector__photo-wrap">
         <Photo className="lector__photo" id={lecturer.id} name={lecturer.name} />
         <span className="rainbow lector__line" />
       </div>
       <div className="lector__info">
-        <h2 className="lector__name">{lecturer.name}</h2>
         <p className="lector__facts">
-          <span><b>Образование:</b> {lecturer.education}</span>
-          <span><b>Стаж:</b> {lecturer.experience}</span>
-          <span><b>Учёная степень:</b> {lecturer.degree}</span>
+          <span>
+            <b>Образование:</b> {lecturer.education}
+          </span>
+          <span>
+            <b>Стаж:</b> {lecturer.experience}
+          </span>
+          <span>
+            <b>Учёная степень:</b> {lecturer.degree}
+          </span>
         </p>
       </div>
     </div>
@@ -41,5 +75,5 @@ export const Lector = ({ lecturer }) => (
         </li>
       ))}
     </ul>
-  </section>
+  </div>
 );
