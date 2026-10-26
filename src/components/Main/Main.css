@@ -29,10 +29,63 @@
   font-weight: 700;
 }
 
+
 .main .main__cta {
+  --bw: 6px;        /* толщина обводки в покое */
+  --bw-hover: 10px;  /* толщина обводки при наведении */
+
   position: absolute;
   right: 76px;
   bottom: 52px;
+  font-size: 20px;
+  font-weight: 700;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 44px; /* перебивает padding: 0 0 8px из .cta */
+  border-radius: 999px;
+  text-align: center;
+  isolation: isolate;
+}
+
+/* радужная обводка: градиент с вырезанной серединой */
+.main .main__cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: var(--bw);
+  background: var(--rainbow);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: padding 0.25s ease;
+}
+
+/* отключаем стандартную радужную полосу из .cta */
+.main .main__cta::after,
+.main .main__cta:hover::after {
+  content: none;
+  display: none;
+}
+
+.main .main__cta:hover::before,
+.main .main__cta:focus-visible::before {
+  padding: var(--bw-hover);
+}
+
+.main .main__cta:focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main .main__cta::before {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -56,5 +109,7 @@
     position: static;
     align-self: flex-end;
     margin-right: 8px;
+    padding: 16px 32px;
+    font-size: 14px;
   }
 }
