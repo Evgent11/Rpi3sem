@@ -1,19 +1,129 @@
-# React + Vite
+# Учебная платформа
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Одностраничный сайт учебной платформы, которая предоставляет онлайн и офлайн услуги физическим и юридическим лицам по преподаванию дисциплин. Сайт реализован по макету на стандартной библиотеке React, **без сторонних библиотек** (в зависимостях только `react` и `react-dom`, для сборки используется Vite).
 
-Currently, two official plugins are available:
+## Цель и задачи
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Цель:** на основе макета реализовать платформу на чистом React и расширить содержимое сайта по сравнению с макетом.
 
-## React Compiler
+**Что сделано:**
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+* спроектирована архитектура приложения: один компонент на один фрейм макета, данные вынесены отдельно от разметки;
+* стили компонентов соответствуют макету: размеры, цвета, градиент меню, радужные линии;
+* все фреймы собраны на одной странице, переход между ними выполняется по якорным ссылкам с плавной прокруткой;
+* контент по лекторам и лекциям заполнен из материалов задания: 10 лекторов (5 мужчин и 5 женщин), у каждого по 3 дисциплины, по 10 тем в каждой и по 3 тарифа;
+* добавлен футер, которого не было в макете;
+* бонус: фото лекторов подгружаются из облака (Yandex Object Storage), при недоступности облака берутся локальные файлы.
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+## Стек
 
-## Expanding the ESLint configuration
+|Что|Чем|
+|-|-|
+|UI|React (`react`, `react-dom`)|
+|Сборка и dev-сервер|Vite|
+|Стили|чистый CSS, по файлу на компонент|
+|Маршрутизация|якорные ссылки (`#about`, `#lectors`…) и `scroll-behavior: smooth`|
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Сторонние библиотеки компонентов, роутеры и UI-киты не используются.
+
+## Запуск
+
+Требуется Node.js 18 или новее.
+
+```bash
+npm install      # установка зависимостей
+npm run dev      # режим разработки, http://localhost:5173/
+npm run build    # production-сборка в папку dist
+npm run preview  # локальный просмотр собранной версии
+```
+
+## Структура проекта
+
+```
+rpj/
+├── index.html                 подключение шрифта Montserrat, точка входа
+├── .env.example               пример настройки облака для фото
+└── src/
+    ├── main.jsx               точка входа React
+    ├── App.jsx                сборка страницы из блоков
+    ├── App.css
+    ├── index.css              глобальные стили, переменные цветов, общие классы
+    ├── config.js              адрес облака с фото (VITE\_PHOTOS\_URL)
+    ├── utils.js               форматирование цены
+    ├── assets/
+    │   ├── Logo.svg           логотип (4 цветные полосы)
+    │   ├── hero.jpg           фото на главном экране
+    │   ├── icl.svg            логотип партнёра ICL
+    │   ├── tatneft.svg        логотип партнёра «Татнефть»
+    │   └── lecturers/         локальные фото лекторов 1.jpg … 10.jpg
+    ├── data/
+    │   ├── lecturers.js       лекторы, дисциплины, темы, тарифы
+    │   └── partners.js        партнёры
+    └── components/
+        ├── Nav/               меню (фрейм «Хэдер»)
+        ├── Main/              главный экран (фрейм «Главная»)
+        ├── About/             блок «О нас»
+        ├── Partners/          блок «Партнеры»
+        ├── Lectors/           блок «Лекторы»
+        │   ├── Lectors.jsx    список всех лекторов
+        │   ├── Lector.jsx     карточка одного лектора по макету
+        │   └── Photo.jsx      фото: облако с запасным локальным файлом
+        └── Footer/            футер
+```
+
+## Архитектура
+
+* **Один фрейм макета — один компонент.** Название компонента совпадает с названием фрейма: `Main`, `About`, `Partners`, `Lectors`. Стили лежат рядом с компонентом (`Main.jsx` и `Main.css`).
+* **Данные отделены от разметки.** Тексты о лекторах и партнёрах находятся в `src/data/`. Чтобы добавить лектора, достаточно добавить объект в `lecturers.js` и положить фото `<id>.jpg` в `src/assets/lecturers/`, а компоненты менять не нужно.
+* **Общие элементы вынесены в `index.css`:** цвета макета (`--red`, `--yellow`, `--green`, `--purple`), радужная линия `.rainbow`, кнопка-ссылка `.cta`, рамка фрейма `.frame`.
+* **Страница собирается в `App.jsx`:** шапка закреплена сверху (`position: sticky`), каждый блок обёрнут в контейнер с `id` для якоря.
+
+## Какие блоки на одной странице
+
+Все блоки находятся на одной странице в порядке макета:
+
+|Блок|Якорь|Ссылка в меню|
+|-|-|-|
+|Главная (hero и кнопка «Найти лектора»)|`#home`|Главная|
+|О нас|`#about`|О нас|
+|Партнеры|`#partners`|Партнеры|
+|Лекторы|`#lectors`|Лекторы|
+|Футер|—|—|
+
+Клик по пункту меню плавно прокручивает страницу к нужному блоку. Отступ `scroll-margin-top` не даёт закреплённому меню перекрывать заголовок блока.
+
+## Контент
+
+Данные о лекторах взяты из файла задания. У каждого лектора указаны:
+
+* ФИО, образование, стаж, учёная степень;
+* три преподаваемые дисциплины с описанием и нумерованным списком из 10 тем;
+* тарифы (индивидуальное занятие, пакет занятий, интенсив или корпоративный тренинг).
+
+В макете показан один лектор с заглушкой «место для фото», поэтому блок `Lector` повторяет этот фрейм для каждого из 10 лекторов. Радужная линия под фото, заголовки и списки дисциплин сделаны по макету.
+
+## Бонус: фото из облака
+
+Фото лекторов можно загружать из Yandex Object Storage.
+
+1. Создайте публичный бакет и загрузите в него файлы `1.jpg … 10.jpg` из `src/assets/lecturers/` в папку `lecturers/`.
+2. В корне проекта создайте файл `.env` (пример лежит в `.env.example`):
+
+```
+   VITE\_PHOTOS\_URL=https://storage.yandexcloud.net/<имя-бакета>/lecturers
+   ```
+
+3. Перезапустите `npm run dev`.
+
+Компонент `Photo` формирует адрес вида `<VITE\_PHOTOS\_URL>/<id>.jpg`. Если переменная пуста или фото не загрузилось, он автоматически подставляет локальный файл из `src/assets/lecturers/`, так что сайт работает и без облака.
+
+## Дополнения к макету
+
+По сравнению с макетом добавлен **футер** с навигацией по разделам и контактами. Контакты в нём условные (`info@example.com`, `8 (800) 000-00-00`), перед публикацией замените их настоящими.
+
+## Что можно улучшить
+
+* заменить `hero.jpg` и логотипы партнёров на оригиналы;
+* подсветка текущего раздела в меню при прокрутке (на `IntersectionObserver`);
+* адаптация под очень узкие экраны меню.
+
