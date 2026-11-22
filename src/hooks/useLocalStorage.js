@@ -15,6 +15,9 @@ const read = (key, initialValue) => {
 // перезагрузку страницы. API совпадает с useState:
 //   const [value, setValue] = useLocalStorage("ключ", initialValue);
 // setValue принимает и новое значение, и функцию-апдейтер.
+//
+// initialValue лучше держать константой вне компонента: от его ссылки
+// зависит подписка на изменения хранилища из других вкладок.
 export const useLocalStorage = (key, initialValue) => {
   const [value, setValue] = useState(() => read(key, initialValue));
 
@@ -26,6 +29,19 @@ export const useLocalStorage = (key, initialValue) => {
       // продолжаем работать как обычный useState.
     }
   }, [key, value]);
+
+  // Если значение поменяли в другой вкладке, браузер присылает событие
+  // storage — подхватываем его, чтобы вкладки не расходились.
+  useEffect(() => {
+    const onStorage = (event) => {
+      if (event.key === key || event.key === null) {
+        setValue(read(key, initialValue));
+      }
+    };
+
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [key, initialValue]);
 
   return [value, setValue];
 };

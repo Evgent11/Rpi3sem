@@ -16,6 +16,7 @@ export const Lector = ({ lecturer, isFavorite, onToggleFavorite }) => {
       <button
         type="button"
         className={`lector-card__favorite${isFavorite ? " is-active" : ""}`}
+        aria-pressed={Boolean(isFavorite)}
         aria-label={favoriteLabel}
         title={favoriteLabel}
         onClick={() => onToggleFavorite(lecturer.id)}

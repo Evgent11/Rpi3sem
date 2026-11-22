@@ -7,19 +7,27 @@ import "./Lectors.css";
 // Избранное хранится в localStorage списком id лекторов.
 const FAVORITES_KEY = "lectors:favorites";
 
+// Стабильная ссылка: от неё зависит подписка на изменения в других вкладках.
+const EMPTY_FAVORITES = [];
+
 export const Lectors = () => {
-  const [favorites, setFavorites] = useLocalStorage(FAVORITES_KEY, []);
+  const [favorites, setFavorites] = useLocalStorage(FAVORITES_KEY, EMPTY_FAVORITES);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
 
+  // В localStorage мог оказаться не массив (старый формат, ручная правка) —
+  // не даём странице упасть.
+  const favoriteIds = Array.isArray(favorites) ? favorites : [];
+
   const toggleFavorite = (id) =>
-    setFavorites((prev) =>
-      prev.includes(id)
-        ? prev.filter((item) => item !== id)
-        : [...prev, id],
-    );
+    setFavorites((prev) => {
+      const ids = Array.isArray(prev) ? prev : [];
+      return ids.includes(id)
+        ? ids.filter((item) => item !== id)
+        : [...ids, id];
+    });
 
   const shown = onlyFavorites
-    ? lecturers.filter((lecturer) => favorites.includes(lecturer.id))
+    ? lecturers.filter((lecturer) => favoriteIds.includes(lecturer.id))
     : lecturers;
 
   return (
@@ -35,9 +43,9 @@ export const Lectors = () => {
             aria-pressed={onlyFavorites}
             onClick={() => setOnlyFavorites((prev) => !prev)}
           >
-            Избранное · {favorites.length}
+            Избранное · {favoriteIds.length}
           </button>
-          {favorites.length > 0 && (
+          {favoriteIds.length > 0 && (
             <button
               type="button"
               className="lectors__clear"
@@ -55,7 +63,7 @@ export const Lectors = () => {
             <Lector
               key={lecturer.id}
               lecturer={lecturer}
-              isFavorite={favorites.includes(lecturer.id)}
+              isFavorite={favoriteIds.includes(lecturer.id)}
               onToggleFavorite={toggleFavorite}
             />
           ))}
