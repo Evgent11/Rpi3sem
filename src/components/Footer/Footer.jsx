@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
 import "./Footer.css";
 
@@ -13,10 +14,9 @@ export const Footer = () => (
       </div>
       <nav className="footer__col" aria-label="Разделы сайта">
         <h4>Разделы</h4>
-        <a href="#/">Главная</a>
-        <a href="#/partners">Партнеры</a>
-        <a href="#/about">О нас</a>
-        <a href="#/lectors">Лекторы</a>
+        <Link to="/">Главная</Link>
+        <Link to="/lecturers">Лекторы</Link>
+        <Link to="/about">О нас</Link>
       </nav>
       <div className="footer__col">
         <h4>Контакты</h4>

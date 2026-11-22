@@ -1,14 +1,19 @@
 import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Photo } from "./Photo";
-import { Modal } from "../Modal/Modal";
 import { formatPrice } from "../../utils";
+import "./Lectors.css";
 
-// Карточка лектора. Подробности открываются в модальном окне.
+// Карточка лектора. При клике открывается отдельная страница лектора.
 export const Lector = ({ lecturer }) => {
-  const [open, setOpen] = useState(false);
+  console.log("Рендер карточки: " + lecturer.name);
+  const navigate = useNavigate();
 
   return (
-    <article className="lector-card frame">
+    <article
+      className="lector-card frame"
+      onClick={() => navigate(`/lecturers/${lecturer.id}`)}
+    >
       <Photo className="lector-card__photo" id={lecturer.id} name={lecturer.name} />
       <div className="lector-card__body">
         <h2 className="lector-card__name">{lecturer.name}</h2>
@@ -17,21 +22,19 @@ export const Lector = ({ lecturer }) => {
           {" · "}
           {lecturer.experience}
         </p>
-        <button type="button" className="cta" onClick={() => setOpen(true)}>
+        <Link
+          to={`/lecturers/${lecturer.id}`}
+          className="cta"
+          onClick={(e) => e.stopPropagation()}
+        >
           Подробнее
-        </button>
+        </Link>
       </div>
-
-      {open && (
-        <Modal title={lecturer.name} onClose={() => setOpen(false)}>
-          <LectorDetails lecturer={lecturer} />
-        </Modal>
-      )}
     </article>
   );
 };
 
-const LectorDetails = ({ lecturer }) => {
+export const LectorDetails = ({ lecturer }) => {
   const formRef = useRef(null);
 
   const scrollToForm = () => {
@@ -93,7 +96,7 @@ const LectorDetails = ({ lecturer }) => {
   );
 };
 
-const initialForm = { name: "", phone: "", tariff: "", comment: "" };
+const initialForm = { name: "", phone: "", email: "", tariff: "", comment: "" };
 
 const SignupForm = ({ lecturer, formRef }) => {
   const [form, setForm] = useState({
