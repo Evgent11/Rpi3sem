@@ -1,3 +1,68 @@
+/* ---------- панель избранного ---------- */
+.lectors__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+.lectors__hint {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.lectors__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.lectors__filter {
+  padding: 8px 18px;
+  border: 1px solid #000;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.lectors__filter:hover,
+.lectors__filter[aria-pressed="true"] {
+  background: #000;
+  color: #fff;
+}
+
+.lectors__filter:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}
+
+.lectors__clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.lectors__clear:hover {
+  color: #000;
+}
+
 .lectors {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5,10 +70,48 @@
 }
 
 .lector-card {
+  position: relative;
   display: flex;
   gap: 20px;
   padding: 20px;
   background: #fff;
+}
+
+/* сердечко «в избранное» */
+.lector-card__favorite {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.lector-card__favorite:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+.lector-card__favorite.is-active {
+  color: var(--red);
+  border-color: var(--red);
+  background: #fff5f4;
+}
+
+.lector-card__favorite:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
 }
 
 .lector-card__photo {
@@ -26,6 +129,29 @@
   align-items: flex-start;
   gap: 12px;
   min-width: 0;
+  padding-right: 40px;
+}
+
+.lectors__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 32px;
+  background: #fff;
+}
+
+.lectors__empty-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.lectors__empty-text {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .lector-card__name {
