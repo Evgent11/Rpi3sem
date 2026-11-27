@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import image from "../../assets/hero.jpg";
 import "./Main.css";
 
@@ -12,9 +13,9 @@ export const Main = () => {
           знаниями.
         </span>
       </p>
-      <a className="cta main__cta" href="#lectors">
+      <Link className="cta main__cta" to="/lecturers">
         Найти лектора
-      </a>
+      </Link>
     </section>
   );
 };

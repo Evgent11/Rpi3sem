@@ -1,0 +1,90 @@
+.lecturers-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lecturers-search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+}
+
+.lecturers-search__label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lecturers-search input {
+  max-width: 420px;
+  padding: 10px 14px;
+  border: 1px solid #000;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-size: 16px;
+}
+
+.lecturers-search input:focus {
+  outline: 3px solid var(--purple);
+  outline-offset: 1px;
+}
+
+.lecturers-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.lector-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 32px;
+}
+
+.lector-detail__back {
+  align-self: flex-start;
+}
+
+.lector-detail__title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 36px;
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 40px 32px;
+}
+
+.not-found__code {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.not-found__text {
+  font-size: 18px;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .lector-detail {
+    padding: 20px 16px;
+  }
+
+  .lector-detail__title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .not-found {
+    padding: 28px 16px;
+  }
+}
