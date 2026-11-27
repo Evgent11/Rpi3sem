@@ -73,6 +73,11 @@ img {
   min-height: 60vh;
 }
 
+/* Переход по якорю не должен прятать начало блока под закреплённым меню */
+.anchor {
+  scroll-margin-top: 104px;
+}
+
 .frame {
   background: #ffffff;
   border: 1px solid transparent;

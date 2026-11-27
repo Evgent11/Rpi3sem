@@ -4,6 +4,34 @@ import { Photo } from "./Photo";
 import { formatPrice } from "../../utils";
 import "./Lectors.css";
 
+// Карточка лектора. Подробности открываются в модальном окне,
+// сердечко добавляет лектора в избранное (см. useLocalStorage).
+export const Lector = ({ lecturer, isFavorite, onToggleFavorite }) => {
+  const [open, setOpen] = useState(false);
+  const favoriteLabel = isFavorite
+    ? `Убрать ${lecturer.name} из избранного`
+    : `Добавить ${lecturer.name} в избранное`;
+
+  return (
+    <article className="lector-card frame">
+      <button
+        type="button"
+        className={`lector-card__favorite${isFavorite ? " is-active" : ""}`}
+        aria-pressed={Boolean(isFavorite)}
+        aria-label={favoriteLabel}
+        title={favoriteLabel}
+        onClick={() => onToggleFavorite(lecturer.id)}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 20.5 4.6 13.1a4.2 4.2 0 0 1 5.9-5.9l1.5 1.4 1.5-1.4a4.2 4.2 0 0 1 5.9 5.9L12 20.5Z"
+            fill={isFavorite ? "currentColor" : "none"}
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
 // Карточка лектора. При клике открывается отдельная страница лектора.
 export const Lector = ({ lecturer }) => {
   console.log("Рендер карточки: " + lecturer.name);
